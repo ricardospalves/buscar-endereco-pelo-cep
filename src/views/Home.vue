@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form>
+    <form @submit.prevent="fetchCep">
       <input
         type="text"
         inputmode="numeric"
@@ -37,6 +37,23 @@ export default {
     },
     cepRaw() {
       return this.cep.trim().replace(/\D+/g, '')
+    }
+  },
+  methods: {
+    fetchCep() {
+      if(this.isCepValid) {
+        fetch(`https://viacep.com.br/ws/${this.cepRaw}/json/`)
+          .then(response => response.json())
+          .then(json => {
+            console.log(json)
+          })
+          .catch(error => {
+            console.error(error)
+          })
+          .finally(() => {
+            console.log('Finally!')
+          })
+      }
     }
   },
   directives: {
