@@ -1,7 +1,13 @@
 <template>
   <div>
     <form>
-      <input type="text" v-inputmask="99999-999" autofocus>
+      <input
+        type="text"
+        inputmode="numeric"
+        v-inputmask
+        autofocus
+      >
+
       <button>Buscar endereço</button>
     </form>
   </div>
