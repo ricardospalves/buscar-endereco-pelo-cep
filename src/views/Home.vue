@@ -37,6 +37,26 @@
         </div>
       </template>
     </template>
+
+    <div v-if="adresses.length">
+      <h2>
+        Endereços recentes
+      </h2>
+
+      <ul>
+        <li v-for="address in adresses" :key="address.cep">
+          <input
+            type="text"
+            :id="`field-${address.cep}`"
+            class="block w-full"
+            :value="address | formattedAddress"
+            readonly
+          >
+
+          <button type="button" @click="clipboard" :data-js-target="`#field-${address.cep}`">Copiar</button>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
