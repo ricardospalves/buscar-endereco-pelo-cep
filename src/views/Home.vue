@@ -48,7 +48,8 @@ export default {
       fetchCep: '',
       isFetching: false,
       hasError: false,
-      address: ''
+      address: '',
+      adresses: []
     }
   },
   computed: {
@@ -67,28 +68,39 @@ export default {
   methods: {
     fetchCepFromServices() {
       if(this.isCepValid) {
+
         if(this.didCepChangeAfterFetch) {
-          this.isFetching = true
+          const address = this.adresses.find(address => address.cep === this.cep)
 
-          fetch(`https://viacep.com.br/ws/${this.cepRaw}/json/`)
-            .then(response => response.json())
-            .then(json => {
-              if(json.erro) {
-                this.hasError = true
-              }
+          this.fetchCep = this.cep
 
-              else {
-                this.hasError = false
-                this.address = json
-              }
-            })
-            .catch(error => {
-              console.error(error)
-            })
-            .finally(() => {
-              this.isFetching = false
-              this.fetchCep = this.cep
-            })
+          if(address) {
+            this.address = address
+          }
+
+          else {
+            this.isFetching = true
+
+            fetch(`https://viacep.com.br/ws/${this.cepRaw}/json/`)
+              .then(response => response.json())
+              .then(json => {
+                if(json.erro) {
+                  this.hasError = true
+                }
+
+                else {
+                  this.hasError = false
+                  this.address = json
+                  this.adresses.push(json)
+                }
+              })
+              .catch(error => {
+                console.error(error)
+              })
+              .finally(() => {
+                this.isFetching = false
+              })
+          }
         }
       }
     },
