@@ -23,9 +23,11 @@
         </p>
       </template>
 
-      <p v-else>
-        {{ address }}
-      </p>
+      <template v-else>
+        <p v-if="address">
+          {{ address | formattedAddress }}
+        </p>
+      </template>
     </template>
   </div>
 </template>
@@ -81,6 +83,13 @@ export default {
             })
         }
       }
+    }
+  },
+  filters: {
+    formattedAddress(address) {
+      const { cep, logradouro, bairro, localidade, uf } = address
+
+      return `${logradouro} - ${bairro}, ${localidade} - ${uf}, ${cep}`
     }
   },
   directives: {
