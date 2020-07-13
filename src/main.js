@@ -4,8 +4,11 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import Inputmask from 'inputmask'
+import autosize from 'autosize'
 
 import './assets/css/tailwind.css'
+
+Object.defineProperty(Vue.prototype, '$autosize', { value: autosize })
 
 Vue.use(Inputmask)
 
