@@ -1,12 +1,11 @@
 <template>
   <label>
-    <input
-      type="text"
-      class="block w-full"
-      :value="value"
+    <textarea
+      class="block w-full leading-normal h-6 text-base border border-gray-500"
+      v-model="value"
       readonly
       @focus="focusHandler"
-    >
+    ></textarea>
 
     <span>Copiar</span>
   </label>
@@ -26,6 +25,9 @@ export default {
 
       document.execCommand('copy')
     }
+  },
+  mounted() {
+    this.$autosize(this.$el.querySelector('textarea'))
   }
 }
 </script>
