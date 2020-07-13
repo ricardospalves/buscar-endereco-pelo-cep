@@ -24,17 +24,7 @@
       </template>
 
       <template v-else>
-        <div v-if="address">
-          <input
-            type="text"
-            id="address"
-            class="block w-full"
-            :value="address | formattedAddress"
-            readonly
-          >
-
-          <button type="button" @click="clipboard" data-js-target="#address">Copiar</button>
-        </div>
+        <Address v-if="address" :value="address | formattedAddress"/>
       </template>
     </template>
 
@@ -45,15 +35,7 @@
 
       <ul>
         <li v-for="address in adresses" :key="address.cep">
-          <input
-            type="text"
-            :id="`field-${address.cep}`"
-            class="block w-full"
-            :value="address | formattedAddress"
-            readonly
-          >
-
-          <button type="button" @click="clipboard" :data-js-target="`#field-${address.cep}`">Copiar</button>
+          <Address :value="address | formattedAddress"/>
         </li>
       </ul>
     </div>
@@ -61,7 +43,12 @@
 </template>
 
 <script>
+import Address from '../components/Address'
+
 export default {
+  components: {
+    Address
+  },
   data() {
     return {
       cep: '01001-000',
@@ -123,15 +110,6 @@ export default {
           }
         }
       }
-    },
-    clipboard(event) {
-      const targetSelector = event.currentTarget.getAttribute('data-js-target')
-      const elTarget = document.querySelector(targetSelector)
-
-      elTarget.select()
-      elTarget.setSelectionRange(0, 99999)
-
-      document.execCommand('copy')
     }
   },
   filters: {
