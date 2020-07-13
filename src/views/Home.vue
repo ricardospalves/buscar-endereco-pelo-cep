@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="fetchCep">
+    <form @submit.prevent="fetchCepFromServices">
       <input
         type="text"
         inputmode="numeric"
@@ -12,13 +12,21 @@
       <button>Buscar endereço</button>
     </form>
 
-    <p>
-      {{ cepRaw }}
+    <p v-if="isFetching">
+      Buscando o endereço para o CEP <strong>{{ cep }}</strong>…
     </p>
 
-    <p>
-      {{ isCepValid }}
-    </p>
+    <template v-else>
+      <template v-if="hasError">
+        <p v-if="!didCepChangeAfterFetch">
+          Desculpe, não foi encontrado nenhum endereço para o CEP <strong>{{ cep }}</strong>.
+        </p>
+      </template>
+
+      <p v-else>
+        {{ address }}
+      </p>
+    </template>
   </div>
 </template>
 
@@ -26,7 +34,11 @@
 export default {
   data() {
     return {
-      cep: '01001-000'
+      cep: '01001-000',
+      fetchCep: '',
+      isFetching: false,
+      hasError: false,
+      address: ''
     }
   },
   computed: {
@@ -37,22 +49,37 @@ export default {
     },
     cepRaw() {
       return this.cep.trim().replace(/\D+/g, '')
+    },
+    didCepChangeAfterFetch() {
+      return this.cep !== this.fetchCep
     }
   },
   methods: {
-    fetchCep() {
+    fetchCepFromServices() {
       if(this.isCepValid) {
-        fetch(`https://viacep.com.br/ws/${this.cepRaw}/json/`)
-          .then(response => response.json())
-          .then(json => {
-            console.log(json)
-          })
-          .catch(error => {
-            console.error(error)
-          })
-          .finally(() => {
-            console.log('Finally!')
-          })
+        if(this.didCepChangeAfterFetch) {
+          this.isFetching = true
+
+          fetch(`https://viacep.com.br/ws/${this.cepRaw}/json/`)
+            .then(response => response.json())
+            .then(json => {
+              if(json.erro) {
+                this.hasError = true
+              }
+
+              else {
+                this.hasError = false
+                this.address = json
+              }
+            })
+            .catch(error => {
+              console.error(error)
+            })
+            .finally(() => {
+              this.isFetching = false
+              this.fetchCep = this.cep
+            })
+        }
       }
     }
   },
