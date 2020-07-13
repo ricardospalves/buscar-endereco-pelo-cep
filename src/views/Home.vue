@@ -72,6 +72,11 @@ export default {
       return this.cep !== this.fetchCep
     }
   },
+  watch: {
+    adresses(array) {
+      localStorage.setItem('adresses', JSON.stringify(array))
+    }
+  },
   methods: {
     fetchCepFromServices() {
       if(this.isCepValid) {
@@ -126,6 +131,11 @@ export default {
           clearMaskOnLostFocus: false
         }).mask(el)
       }
+    }
+  },
+  mounted() {
+    if (localStorage.adresses) {
+      this.adresses = JSON.parse(localStorage.getItem('adresses'))
     }
   }
 }
