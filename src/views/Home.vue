@@ -24,9 +24,17 @@
       </template>
 
       <template v-else>
-        <p v-if="address">
-          {{ address | formattedAddress }}
-        </p>
+        <div v-if="address">
+          <input
+            type="text"
+            id="address"
+            class="block w-full"
+            :value="address | formattedAddress"
+            readonly
+          >
+
+          <button type="button" @click="clipboard" data-js-target="#address">Copiar</button>
+        </div>
       </template>
     </template>
   </div>
@@ -83,6 +91,15 @@ export default {
             })
         }
       }
+    },
+    clipboard(event) {
+      const targetSelector = event.currentTarget.getAttribute('data-js-target')
+      const elTarget = document.querySelector(targetSelector)
+
+      elTarget.select()
+      elTarget.setSelectionRange(0, 99999)
+
+      document.execCommand('copy')
     }
   },
   filters: {
