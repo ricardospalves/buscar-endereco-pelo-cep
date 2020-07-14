@@ -4,16 +4,35 @@
       Buscar endereço pelo CEP
     </h1>
 
-    <form @submit.prevent="fetchCepFromServices">
-      <input
-        type="text"
-        inputmode="numeric"
-        v-model="cep"
-        v-inputmask
-        autofocus
+    <form
+      class="max-w-md mx-auto"
+      @submit.prevent="fetchCepFromServices"
+    >
+      <label
+        for="cep"
+        class="block pb-2"
       >
+        Digite o CEP para buscar pelo endereço
+      </label>
 
-      <button>Buscar endereço</button>
+      <div class="grid grid-cols-12">
+        <input
+          type="text"
+          id="cep"
+          class="col-span-6 block py-2 border-2 border-transparent hover:border-black focus:border-black text-black text-xl text-center focus:outline-none focus:shadow-outline bg-gray-300 hover:bg-transparent focus:bg-transparent rounded-l transition-colors duration-200"
+          inputmode="numeric"
+          placeholder="exemplo: 12345-678"
+          v-model="cep"
+          v-inputmask
+          autofocus
+        >
+
+        <button
+          class="col-span-6 block py-2 font-bold bg-blue-400 hover:bg-blue-600 focus:bg-blue-600 focus:outline-none focus:shadow-outline transition-colors duration-200 rounded-r"
+        >
+          Buscar endereço
+        </button>
+      </div>
     </form>
 
     <p v-if="isFetching">
