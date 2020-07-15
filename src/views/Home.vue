@@ -21,7 +21,7 @@
           id="cep"
           class="col-span-6 block py-2 border-2 border-transparent hover:border-black focus:border-black text-black text-xl text-center focus:outline-none focus:shadow-outline bg-gray-300 hover:bg-transparent focus:bg-transparent rounded-l transition-colors duration-200"
           inputmode="numeric"
-          placeholder="exemplo: 12345-678"
+          placeholder="ex.: 12345-678"
           v-model="cep"
           v-inputmask
           autofocus
