@@ -85,7 +85,7 @@ export default {
   },
   data() {
     return {
-      cep: '01001-000',
+      cep: '',
       fetchCep: '',
       isFetching: false,
       hasError: false,
