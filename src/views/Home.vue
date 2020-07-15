@@ -1,11 +1,11 @@
 <template>
-  <div class="text-gray-800 p-2">
+  <div class="max-w-2xl mx-auto text-gray-800 p-2">
     <h1 class="text-2xl sm:text-3xl text-center font-bold text-black">
       Buscar endereço pelo CEP
     </h1>
 
     <form
-      class="max-w-md mx-auto"
+      class="max-w-md mx-auto my-8"
       @submit.prevent="fetchCepFromServices"
     >
       <label
@@ -35,25 +35,27 @@
       </div>
     </form>
 
-    <p v-if="isFetching">
-      Buscando o endereço para o CEP <strong>{{ cep }}</strong>…
-    </p>
-
-    <template v-else>
-      <template v-if="hasError">
-        <p v-if="!didCepChangeAfterFetch">
-          Desculpe, não foi encontrado nenhum endereço para o CEP <strong>{{ cep }}</strong>.
-        </p>
-      </template>
+    <div class="text-center">
+      <p v-if="isFetching">
+        Buscando o endereço para o CEP <strong>{{ cep }}</strong>…
+      </p>
 
       <template v-else>
-        <Address v-if="address" :value="address | formattedAddress"/>
+        <template v-if="hasError">
+          <p v-if="!didCepChangeAfterFetch">
+            Desculpe, não foi encontrado nenhum endereço para o CEP <strong>{{ cep }}</strong>.
+          </p>
+        </template>
+
+        <template v-else>
+          <Address v-if="address" :value="address | formattedAddress"/>
+        </template>
       </template>
-    </template>
+    </div>
 
     <div
       v-if="adresses.length"
-      class="max-w-2xl mx-auto"
+      class="mt-8"
     >
       <h2 class="text-xl font-bold">
         Endereços recentes
