@@ -1,5 +1,5 @@
 <template>
-  <div class="text-gray-800">
+  <div class="text-gray-800 p-2">
     <h1 class="text-2xl sm:text-3xl text-center font-bold text-black">
       Buscar endereço pelo CEP
     </h1>
