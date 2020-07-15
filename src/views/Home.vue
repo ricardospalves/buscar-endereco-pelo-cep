@@ -63,9 +63,11 @@
 
       <ul>
         <li
-          v-for="address in adresses"
+          v-for="(address, addressIndex) in adresses"
           :key="address.cep"
-          class="py-4"
+          :class="[
+            addressIndex ? 'mt-8' : 'mt-4'
+          ]"
         >
           <Address :value="address | formattedAddress"/>
         </li>
