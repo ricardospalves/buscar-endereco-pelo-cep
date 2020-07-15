@@ -51,13 +51,20 @@
       </template>
     </template>
 
-    <div v-if="adresses.length">
-      <h2>
+    <div
+      v-if="adresses.length"
+      class="max-w-2xl mx-auto"
+    >
+      <h2 class="text-xl font-bold">
         Endereços recentes
       </h2>
 
       <ul>
-        <li v-for="address in adresses" :key="address.cep">
+        <li
+          v-for="address in adresses"
+          :key="address.cep"
+          class="py-4"
+        >
           <Address :value="address | formattedAddress"/>
         </li>
       </ul>
