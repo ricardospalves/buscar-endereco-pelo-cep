@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 class="text-2xl sm:text-3xl text-center font-bold">
+  <div class="text-gray-800">
+    <h1 class="text-2xl sm:text-3xl text-center font-bold text-black">
       Buscar endereço pelo CEP
     </h1>
 
