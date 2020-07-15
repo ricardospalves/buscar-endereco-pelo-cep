@@ -161,9 +161,7 @@ export default {
   directives: {
     inputmask: {
       bind(el, binding, vnode) {
-        new Inputmask('99999-999', {
-          clearMaskOnLostFocus: false
-        }).mask(el)
+        new Inputmask('99999-999').mask(el)
       }
     }
   },
