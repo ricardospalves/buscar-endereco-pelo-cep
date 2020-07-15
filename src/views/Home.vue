@@ -28,7 +28,7 @@
         >
 
         <button
-          class="col-span-6 block py-2 font-bold bg-blue-400 hover:bg-blue-600 focus:bg-blue-600 focus:outline-none focus:shadow-outline transition-colors duration-200 rounded-r"
+          class="col-span-6 block py-2 font-bold text-white bg-black hover:bg-gray-800 focus:bg-gray-800 focus:outline-none focus:shadow-outline transition-colors duration-200 rounded-r"
         >
           Buscar endereço
         </button>
