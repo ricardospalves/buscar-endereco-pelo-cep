@@ -1,10 +1,11 @@
 <template>
-  <div class="flex-grow max-w-2xl mx-auto p-2">
+  <div class="flex-grow max-w-2xl w-full mx-auto p-2">
     <h1 class="text-2xl sm:text-3xl text-center font-bold">
       Buscar endereço pelo CEP
     </h1>
 
     <form
+      v-if="isOnline"
       class="max-w-md mx-auto my-8"
       @submit.prevent="fetchCepFromServices"
     >
@@ -34,6 +35,19 @@
         </button>
       </div>
     </form>
+
+    <div
+      v-else
+      class="p-2 my-8 bg-red-500 rounded"
+    >
+      <h2 class="text-xl font-bold">
+        Sem internet
+      </h2>
+
+      <p>
+        Parece que você está sem internet no momento. Conecte-se para poder usar a ferramenta.
+      </p>
+    </div>
 
     <div class="text-center">
       <p v-if="isFetching">
@@ -90,7 +104,8 @@ export default {
       isFetching: false,
       hasError: false,
       address: '',
-      adresses: []
+      adresses: [],
+      isOnline: navigator.onLine
     }
   },
   computed: {
